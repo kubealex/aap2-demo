@@ -1,0 +1,5 @@
+- name: Playbook for testing Apache setup
+  hosts: my_machine
+  tasks:
+    - name: This task ensures httpd package is present on {{ ansible_hostname }}
+      command: echo 'Welcome to AAP22!"
