@@ -2,4 +2,4 @@
   hosts: my_machine
   tasks:
     - name: Greet together {{ ansible_hostname }}!!
-      command: echo 'Welcome to AAP22!'
+      command: echo 'Welcome to AAP22 from {{ ansible_hostname }}!'
