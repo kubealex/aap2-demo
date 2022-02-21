@@ -3,7 +3,8 @@
   tasks:
     - name: Reboot loadbalancer
       reboot: 
-    - name: Wait 600 seconds for target connection to become reachable/usable
+      become: true
+    - name: Wait 600 seconds for target connection to become reachable/usable again
       wait_for_connection:
         timeout: 600
         delay: 0
