@@ -1,0 +1,9 @@
+- name: Playbook for enabling httpd service
+  hosts: webservers
+  tasks:
+    - name: This task ensures httpd package is present on {{ ansible_hostname }}
+      service:
+        name: httpd
+        state: started
+        enabled: true
+      become: true

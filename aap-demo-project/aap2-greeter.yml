@@ -1,5 +1,0 @@
-- name: Playbook for testing AAP2 Setup
-  hosts: webservers
-  tasks:
-    - name: Greet together {{ ansible_hostname }}!!
-      command: echo 'Welcome to AAP22 from {{ ansible_hostname }}!'

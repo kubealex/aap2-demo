@@ -1,0 +1,11 @@
+- name: Playbook for testing Apache setup
+  hosts: webservers
+  tasks:
+    - name: This task ensures httpd package is present on {{ ansible_hostname }}
+      uri:
+        url: http://localhost
+      register: response
+
+    - name: Print the response from apache
+      debug:
+        msg: "{{ resonse.content }}"

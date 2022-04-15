@@ -1,0 +1,6 @@
+- name: Greeter playbook
+  hosts: webservers
+  tasks:
+    - name: This task is going to greet all webservers 
+      debug:
+        msg: "Hello from {{ ansible_hostname }}!!"
