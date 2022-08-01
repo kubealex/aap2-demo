@@ -1,8 +1,49 @@
-- name: Apache installer playbook
+- name: Playbook to provision httpd instances on the webservers
   hosts: webservers
+  become: true
   tasks:
-    - name: This task ensures httpd package is present on {{ ansible_hostname }}
-      yum:
+    - name: Ensure httpd package is installed
+      ansible.builtin.yum: 
         name: httpd
-        state: present
-      become: true
+        state: latest
+
+    - name: Ensure firewalld is running
+      ansible.builtin.service:
+        name: firewalld 
+        state: started
+        enabled: true
+
+    - name: Ensure http/https service is allowed in firewalld
+      ansible.posix.firewalld: 
+        port: "{{ item }}"
+        state: enabled
+        permanent: true
+      loop:
+        - 80/tcp
+        - 443/tcp
+
+    - name: Ensure firewalld is restarted
+      ansible.builtin.service:
+        name: firewalld
+        state: restarted
+
+    - name: Populate httpd content
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html/index.html
+
+    - name: Ensure assets folder exists
+      ansible.builtin.file: 
+        path: /var/www/html/assets
+        state: directory
+
+    - name: Copy image for index page
+      copy:
+        src: assets/redhat.jpg
+        dest: /var/www/html/assets/
+
+    - name: Ensure httpd service is enabled and running
+      ansible.builtin.service: 
+        name: httpd
+        state: restarted
+        enabled: true
