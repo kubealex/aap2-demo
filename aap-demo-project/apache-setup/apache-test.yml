@@ -2,10 +2,11 @@
   hosts: webservers
   tasks:
     - name: This task ensures httpd package is present on {{ ansible_hostname }}
-      uri:
-        url: http://localhost
+      ansible.builtin.uri:
+        url: http://{{ ansible_hostname }}
       register: response
+      delegate_to: localhost
 
     - name: Print the response from apache
-      debug:
+      ansible.builtin.debug:
         msg: "{{ resonse.content }}"
