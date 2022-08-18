@@ -1,0 +1,34 @@
+- name: Playbook to provision httpd instances on the webservers
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Ensure httpd package is installed
+      ansible.builtin.yum: 
+        name: httpd
+        state: absent
+
+    - name: Ensure http/https service is allowed in firewalld
+      ansible.posix.firewalld: 
+        port: "{{ item }}"
+        state: disabled
+        permanent: true
+      loop:
+        - 80/tcp
+        - 443/tcp
+
+    - name: Ensure firewalld is restarted
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: Populate httpd content
+      ansible.builtin.file:
+        src: index.html
+        dest: /var/www/html/index.html
+        state: absent
+
+    - name: Ensure assets folder exists
+      ansible.builtin.file: 
+        path: /var/www/html/assets
+        state: absent
