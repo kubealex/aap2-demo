@@ -9,4 +9,6 @@
 
     - name: Print the response from apache
       ansible.builtin.debug:
-        msg: "{{ resonse.content }}"
+        msg: "{{ response.content }}"
+      delegate_to: localhost
+
