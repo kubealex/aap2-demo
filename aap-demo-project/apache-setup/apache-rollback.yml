@@ -24,8 +24,7 @@
 
     - name: Populate httpd content
       ansible.builtin.file:
-        src: index.html
-        dest: /var/www/html/index.html
+        path: /var/www/html/index.html
         state: absent
 
     - name: Ensure assets folder exists
