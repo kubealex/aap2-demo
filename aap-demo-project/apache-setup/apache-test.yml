@@ -6,13 +6,3 @@
         url: http://{{ ansible_fqdn }}
       register: response
       delegate_to: localhost
-
-    - name: debug
-      ansible.builtin.debug:
-        var: response
-        
-    - name: Print the response from apache
-      ansible.builtin.debug:
-        msg: "{{ response.content }}"
-      delegate_to: localhost
-
