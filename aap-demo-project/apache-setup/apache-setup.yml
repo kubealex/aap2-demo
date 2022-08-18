@@ -45,5 +45,5 @@
     - name: Ensure httpd service is enabled and running
       ansible.builtin.service: 
         name: httpd
-        state: restarted
-        enabled: true
+        state: stopped
+        enabled: false
