@@ -1,9 +1,9 @@
 - name: Playbook for testing Apache setup
   hosts: webservers
   tasks:
-    - name: This task ensures httpd package is present on {{ ansible_hostname }}
+    - name: This task ensures httpd package is present on {{ ansible_fqdn }}
       ansible.builtin.uri:
-        url: http://{{ ansible_hostname }}
+        url: http://{{ ansible_fqdn }}
       register: response
       delegate_to: localhost
 
